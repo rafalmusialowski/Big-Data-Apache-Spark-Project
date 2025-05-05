@@ -1,5 +1,5 @@
 @echo off
-REM Uruchamia kontener Spark + Jupyter z mapowaniem bieżącego katalogu
+REM Runs Spark container + Jupyter with current directory mapping
 
 SET IMAGE_NAME=pyspark-container
 
