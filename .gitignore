@@ -1,0 +1,31 @@
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# MacOS system files
+.DS_Store
+
+# VSCode configuration
+.vscode/
+
+# Docker and logs
+*.log
+
+# Swap files
+*.swp
+*.swo
+
+# Output data and intermediate results
+output/
+*.pickle
+*.parquet
+
+# Spark Warehouse
+spark-warehouse/
+
+# PDFS
+*.pdf
