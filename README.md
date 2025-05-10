@@ -24,7 +24,16 @@ The results of both parts are consistent and demonstrate different approaches to
 - Jupyter Notebook
 - Docker
 
-## How to Run Locally
+
+
+
+## How to Run the Project
+
+There are two ways to run this project: locally using Docker, or on a distributed Spark cluster using Google Cloud Dataproc.
+
+---
+
+### ▶️ Option 1: Run Locally (Docker)
 
 1. Build and run the Docker container:
    ```bash
@@ -39,7 +48,53 @@ The results of both parts are consistent and demonstrate different approaches to
 
 2. Open the Jupyter notebook in your browser at [http://localhost:8888](http://localhost:8888) and run `spark-imdb-analysis-set4.ipynb`.
 
-3. The notebook runs Spark in **local mode** and does not require a remote cluster.
+3. Ensure the flag `is_cluster = False` is set to use local filesystem paths.
+
+---
+
+### ☁️ Option 2: Run on a Dataproc Cluster (GCP)
+
+1. **Create the Dataproc Cluster**
+
+Use the following `gcloud` command:
+
+```bash
+gcloud dataproc clusters create imdb-spark-cluster \
+  --enable-component-gateway \
+  --region europe-central2 \
+  --subnet default \
+  --public-ip-address \
+  --master-machine-type n2-standard-4 \
+  --master-boot-disk-size 50 \
+  --num-workers 2 \
+  --worker-machine-type n2-standard-2 \
+  --worker-boot-disk-size 50 \
+  --image-version 2.2-debian12 \
+  --optional-components JUPYTER \
+  --project YOUR_PROJECT_ID \
+  --max-age=3h
+```
+
+2. **Upload the Notebook and Data**
+
+- Open the JupyterLab interface of the Dataproc cluster.
+- Upload `spark-imdb-analysis-set4.ipynb`.
+- Upload the required datasets to a Google Cloud Storage bucket.
+
+3. **Enable Cluster Mode**
+
+In the notebook:
+```python
+is_cluster = True
+input_dir = "gs://your-bucket-name/set4/input"
+```
+
+This enables Spark to load data from `datasource1` and `datasource4` subfolders located at the specified path in your GCS bucket.
+
+4. **Run the Notebook**
+
+Execute all cells to perform the analysis on the cluster.
+
 
 ## Repository Structure
 
