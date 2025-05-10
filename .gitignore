@@ -29,3 +29,12 @@ spark-warehouse/
 
 # PDFS
 *.pdf
+
+# Datasets
+zestaw4/
+set4/
+
+# Python code from metrics
+*.py
+
+*.txt
